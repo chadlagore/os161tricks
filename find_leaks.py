@@ -3,6 +3,7 @@ import os
 import pandas as pd
 
 filename = 'output.csv'
+os161_folder = '~/os161/root/kernel'
 
 
 def get_leak_table():
@@ -31,7 +32,7 @@ def call_addr2line(tbl):
     '''
     for ix in tbl.index:
         addr = tbl.loc[ix]['address']
-        syscall = 'os161-addr2line -e ~/os161/root/kernel {}'.format(addr)
+        syscall = 'os161-addr2line -e {} {}'.format(os161_folder, addr)
         response = os.popen(syscall).read()[40:]
         tbl['line'].loc[ix] = response
     return tbl
